@@ -11,19 +11,17 @@ import java.awt.Dimension;
  *
  * @author Angel Chacon
  */
-public class MDILabFM extends javax.swing.JFrame {
+public class Menu extends javax.swing.JFrame {
 
     /**
-     * Creates new form MDILabFM
+     * Creates new form Menu
      */
     
+    private MantenimientoClientes ventanaclientes;
+    private Registros ventanaregistros;
     
-   
-   
-    
-    
-    public MDILabFM() {
-        initComponents();        
+    public Menu() {
+        initComponents();
     }
 
     /**
@@ -38,33 +36,42 @@ public class MDILabFM extends javax.swing.JFrame {
         FMVENTANA = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jIngresar = new javax.swing.JMenuItem();
+        jMantenimientoClientes = new javax.swing.JMenuItem();
+        jRegistros = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jSalir = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setExtendedState(6);
 
         javax.swing.GroupLayout FMVENTANALayout = new javax.swing.GroupLayout(FMVENTANA);
         FMVENTANA.setLayout(FMVENTANALayout);
         FMVENTANALayout.setHorizontalGroup(
             FMVENTANALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 739, Short.MAX_VALUE)
+            .addGap(0, 572, Short.MAX_VALUE)
         );
         FMVENTANALayout.setVerticalGroup(
             FMVENTANALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 415, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Menu");
 
-        jIngresar.setText("Ingresar");
-        jIngresar.addActionListener(new java.awt.event.ActionListener() {
+        jMantenimientoClientes.setText("Mantenimiento Clientes");
+        jMantenimientoClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIngresarActionPerformed(evt);
+                jMantenimientoClientesActionPerformed(evt);
             }
         });
-        jMenu1.add(jIngresar);
+        jMenu1.add(jMantenimientoClientes);
+
+        jRegistros.setText("Registros (Videos, DVD)");
+        jRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegistrosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRegistros);
 
         jMenuBar1.add(jMenu1);
 
@@ -96,21 +103,32 @@ public class MDILabFM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMantenimientoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMantenimientoClientesActionPerformed
+        // TODO add your handling code here:
+
+       ventanaclientes = new MantenimientoClientes();
+        FMVENTANA.add(ventanaclientes);
+        Dimension desktopSize = FMVENTANA.getSize();
+        Dimension FrameSize = ventanaclientes.getSize();
+        ventanaclientes.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+       ventanaclientes.show();
+        
+    }//GEN-LAST:event_jMantenimientoClientesActionPerformed
+
+    private void jRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistrosActionPerformed
+        // TODO add your handling code here:
+        ventanaregistros = new Registros();
+        FMVENTANA.add(ventanaregistros);
+        Dimension desktopSize = FMVENTANA.getSize();
+        Dimension FrameSize = ventanaregistros.getSize();
+        ventanaregistros.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        ventanaregistros.show();
+    }//GEN-LAST:event_jRegistrosActionPerformed
+
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jSalirActionPerformed
-
-    private void jIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIngresarActionPerformed
-              
-       login l = new login();
-       l.setVisible(true);
-       Dimension desktopSize = FMVENTANA.getSize();
-        Dimension FrameSize = l.getSize();
-        l.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        l.show();
-        
-    }//GEN-LAST:event_jIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,30 +147,31 @@ public class MDILabFM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MDILabFM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MDILabFM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MDILabFM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MDILabFM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MDILabFM().setVisible(true);
+                new Menu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane FMVENTANA;
-    private javax.swing.JMenuItem jIngresar;
+    private javax.swing.JMenuItem jMantenimientoClientes;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jRegistros;
     private javax.swing.JMenuItem jSalir;
     // End of variables declaration//GEN-END:variables
 }
