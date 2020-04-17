@@ -25,6 +25,7 @@ Existencia int  not null
 
 ) engine=InnoDB Default charset = Latin1 ;
 
+
 create table rentas
 (
 Id_Renta int primary key,
@@ -33,7 +34,7 @@ Nombre_Cliente varchar (60) not null,
 Id_Articulo int not null,
 Precio_Renta float not null,
 Fecha_Adquisicion date not null,
-Fecha_Devolucion date not null, 
+Fecha_Devolucion date not null,
 foreign key (No_Tarjeta) references clientes (No_Tarjeta),
 foreign key(Id_Articulo) references articulos (Id_Articulo)
 )engine=InnoDB Default charset = Latin1 ;

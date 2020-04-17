@@ -2,6 +2,11 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
 /*
@@ -16,11 +21,14 @@ import javax.swing.JOptionPane;
  */
 public class Reporte extends javax.swing.JInternalFrame {
 
+                           
+                           
     /**
      * Creates new form Reporte
      */
     public Reporte() {
         initComponents();
+        
     }
 
     /**
@@ -32,6 +40,7 @@ public class Reporte extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jLabel1 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -48,10 +57,14 @@ public class Reporte extends javax.swing.JInternalFrame {
         txtIdp = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         txtFechaAd = new javax.swing.JTextField();
-        txtFechaEnt = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtMora = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        txtFechaEnt = new javax.swing.JTextField();
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
         setClosable(true);
         setIconifiable(true);
@@ -72,7 +85,7 @@ public class Reporte extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Nombre");
 
-        jLabel5.setText("ID:");
+        jLabel5.setText("ID Disco:");
 
         jLabel6.setText("Precio:");
 
@@ -91,6 +104,13 @@ public class Reporte extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Veficar si tiene mora");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,11 +118,31 @@ public class Reporte extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(80, 80, 80)
+                                .addComponent(btnSalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel10))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtIdp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                            .addComponent(txtFechaAd, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                            .addComponent(txtFechaEnt)))
+                                    .addComponent(txtMora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -112,41 +152,21 @@ public class Reporte extends javax.swing.JInternalFrame {
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNorenta, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNoTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtMora, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel10))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addGap(70, 70, 70)))
-                                    .addGap(10, 10, 10)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtIdp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtFechaAd, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtFechaEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(80, 80, 80)
-                                    .addComponent(btnGuardar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSalir)))))
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(117, 117, 117)
+                                .addComponent(jLabel9))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(308, 308, 308)
-                        .addComponent(jLabel9)))
-                .addContainerGap(281, Short.MAX_VALUE))
+                        .addGap(185, 185, 185)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNorenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -160,7 +180,7 @@ public class Reporte extends javax.swing.JInternalFrame {
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtIdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,22 +194,24 @@ public class Reporte extends javax.swing.JInternalFrame {
                     .addComponent(txtFechaAd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtFechaEnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFechaEnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel10)
                     .addComponent(txtMora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnSalir))
-                .addGap(67, 67, 67))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+int Notarjeta=0;
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
@@ -200,13 +222,15 @@ public class Reporte extends javax.swing.JInternalFrame {
             
             
             pst.setString(1, txtNorenta.getText().trim());
-            pst.setString(2, txtNoTarj.getText().trim());
+            pst.setString(2, txtNoTarj.getText().trim());                            
             pst.setString(3, txtNombre.getText().trim());
             pst.setString(4, txtIdp.getText().trim());
             pst.setString(5, txtPrecio.getText().trim());
             pst.setString(6, txtFechaAd.getText().trim());
             pst.setString(7, txtFechaEnt.getText().trim());
             pst.executeUpdate();
+            
+            
             
             
             txtNorenta.setText("");
@@ -219,6 +243,11 @@ public class Reporte extends javax.swing.JInternalFrame {
             
             JOptionPane.showMessageDialog(null, "Registro Exitoso.");
             
+           
+                
+        
+            
+            
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error al registrar.");
         }
@@ -227,15 +256,88 @@ public class Reporte extends javax.swing.JInternalFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        
-        dispose();
-        
+        dispose();        
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        try{
+            
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/SISTEMA_FM", "root", "compromiso");
+             PreparedStatement pst2 = cn.prepareStatement("SELECT * FROM rentas WHERE Id_Renta = ?");
+             
+                            pst2.setString(1, txtNorenta.getText().trim());  
+                            
+                            ResultSet rs = pst2.executeQuery();
+                            
+                             String I = "", E = "";   
+                            //Fecha_AdquisicionFecha_Devolucion
+                            
+                      if(rs.next()){                       
+                        
+                          String In = "", En = "";
+                          
+                           txtNoTarj.setText(rs.getString("No_Tarjeta"));
+                         txtNombre.setText(rs.getString("Nombre_Cliente"));
+                         txtIdp.setText(rs.getString("Id_Articulo"));
+                         txtPrecio.setText(rs.getString("Precio_Renta"));
+                         txtFechaAd.setText(rs.getString("Fecha_Adquisicion"));
+                         txtFechaEnt.setText(rs.getString("Fecha_Devolucion"));
+                                                      
+                         In = String.valueOf(txtFechaAd.getText().trim());
+                         En = String.valueOf(txtFechaEnt.getText().trim());
+                                                  
+                          SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+                           I = String.valueOf(In);
+                           E = String.valueOf(En);
+                            
+                          
+                        Date date1 = myFormat.parse(I);
+                        Date date2 = myFormat.parse(E);
+                        long diff = date2.getTime() - date1.getTime();
+                        long Dias = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                        long Verificar = 31;
+                        
+                        
+                        
+                        if(Dias > Verificar){
+                            
+                            JOptionPane.showMessageDialog(null, "El Cliente tiene recargo.");
+                            txtMora.setText("Q." + 25);
+                            
+                        }else{
+                            
+                            txtMora.setText("Q." + 00.00);
+                            
+                        }
+                                              
+                        
+                           
+                         
+                      }else{
+                          
+                          JOptionPane.showMessageDialog(null, "El Cliente no tiene recargo.");
+                          
+                          
+                      }
+            
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, "ERROR.");
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
