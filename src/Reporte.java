@@ -62,6 +62,8 @@ public class Reporte extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         txtFechaEnt = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -111,6 +113,8 @@ public class Reporte extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel11.setText("Total");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,20 +125,14 @@ public class Reporte extends javax.swing.JInternalFrame {
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar)
-                                .addGap(80, 80, 80)
-                                .addComponent(btnSalir))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel8)
-                                    .addComponent(jLabel10))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -142,7 +140,8 @@ public class Reporte extends javax.swing.JInternalFrame {
                                             .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                                             .addComponent(txtFechaAd, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                                             .addComponent(txtFechaEnt)))
-                                    .addComponent(txtMora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtMora, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                    .addComponent(txtTotal)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -155,7 +154,14 @@ public class Reporte extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(117, 117, 117)
-                                .addComponent(jLabel9))))
+                                .addComponent(jLabel9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(80, 80, 80)
+                                .addComponent(btnSalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(185, 185, 185)
                         .addComponent(jLabel2)))
@@ -200,13 +206,20 @@ public class Reporte extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel10)
                     .addComponent(txtMora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnSalir))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -289,6 +302,10 @@ int Notarjeta=0;
                                                       
                          In = String.valueOf(txtFechaAd.getText().trim());
                          En = String.valueOf(txtFechaEnt.getText().trim());
+                         
+                         int total = 0;
+                         
+                         total = Integer.parseInt(txtPrecio.getText().trim());
                                                   
                           SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
                            I = String.valueOf(In);
@@ -300,17 +317,20 @@ int Notarjeta=0;
                         long diff = date2.getTime() - date1.getTime();
                         long Dias = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                         long Verificar = 31;
-                        
+                        int mora = 25;
                         
                         
                         if(Dias > Verificar){
                             
                             JOptionPane.showMessageDialog(null, "El Cliente tiene recargo.");
-                            txtMora.setText("Q." + 25);
+                            txtMora.setText("Q." + mora);
+                            total = total + mora;
+                            txtTotal.setText("Q." + total);
                             
                         }else{
                             
                             txtMora.setText("Q." + 00.00);
+                            txtTotal.setText("Q." + total);
                             
                         }
                                               
@@ -340,6 +360,7 @@ int Notarjeta=0;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -356,5 +377,6 @@ int Notarjeta=0;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNorenta;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
