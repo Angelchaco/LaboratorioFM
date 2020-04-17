@@ -1,3 +1,9 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -33,7 +39,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtTarjeta = new javax.swing.JTextField();
+        txtNoTarj = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
@@ -62,8 +68,18 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         jLabel7.setText("Estado:");
 
         btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,7 +98,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7))
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNoTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,7 +122,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNoTarj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -137,6 +153,44 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        
+        try{
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/SISTEMA_FM", "root", "compromiso");
+            PreparedStatement pst = cn.prepareStatement("insert into clientes values(?,?,?,?,?,?)");
+            
+            
+            
+            pst.setString(1, txtNoTarj.getText().trim());
+            pst.setString(2, txtNombre.getText().trim());
+            pst.setString(3, txtApellido.getText().trim());
+            pst.setString(4, txtCorreo.getText().trim());
+            pst.setString(5, txtDireccion.getText().trim());
+            pst.setString(6, txtEstado.getText().trim());
+            pst.executeUpdate();
+            
+            
+            txtNoTarj.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtCorreo.setText("");
+            txtDireccion.setText("");
+            txtEstado.setText("");
+            
+            JOptionPane.showMessageDialog(null, "Registro Exitoso.");
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error al registrar.");
+        }
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
@@ -152,7 +206,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtNoTarj;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTarjeta;
     // End of variables declaration//GEN-END:variables
 }

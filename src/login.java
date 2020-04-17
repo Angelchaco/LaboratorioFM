@@ -34,6 +34,8 @@ public class login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +109,7 @@ public class login extends javax.swing.JFrame {
         
         Menu menu = new Menu();
         menu.setVisible(true);
-        
+        dispose();
         
     }//GEN-LAST:event_btnIngresarActionPerformed
 
